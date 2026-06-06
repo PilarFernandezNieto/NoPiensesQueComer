@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('listas_compra', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('menu_semanal_id')->constrained('menus_semanales')->cascadeOnDelete();
+            $table->timestamp('generado_en')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('listas_compra');
     }
 };

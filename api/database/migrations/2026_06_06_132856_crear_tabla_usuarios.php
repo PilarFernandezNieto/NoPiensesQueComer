@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::table('usuarios', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hogar_id')->constrained('hogares')->cascadeOnDelete();
-            $table->string('nombre');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
@@ -22,13 +19,8 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            Schema::dropIfExists('usuarios');
-        });
+        Schema::dropIfExists('users');
     }
 };

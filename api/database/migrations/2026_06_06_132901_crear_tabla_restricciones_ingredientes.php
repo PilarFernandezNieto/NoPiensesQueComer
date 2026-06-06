@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reglas_hogar', function (Blueprint $table) {
+        Schema::create('restricciones_ingredientes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hogar_id')->constrained('hogares')->cascadeOnDelete();
-            $table->enum('tipo', ['dia_sin_cocina', 'taper_requerido', 'max_dias_cocina']);
-            $table->tinyInteger('dia_semana')->nullable()->comment('0=lunes, 6=domingo');
-            $table->string('valor')->nullable();
+            $table->foreignId('ingrediente_id')->constrained('ingredientes')->cascadeOnDelete();
+            $table->enum('ambito', ['siempre', 'solo_comida', 'solo_cena'])->default('siempre');
             $table->string('notas')->nullable();
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reglas_hogar');
+        Schema::dropIfExists('restricciones_ingredientes');
     }
 };

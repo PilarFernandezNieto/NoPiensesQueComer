@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reglas_hogar', function (Blueprint $table) {
+        Schema::create('menus_semanales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hogar_id')->constrained('hogares')->cascadeOnDelete();
-            $table->enum('tipo', ['dia_sin_cocina', 'taper_requerido', 'max_dias_cocina']);
-            $table->tinyInteger('dia_semana')->nullable()->comment('0=lunes, 6=domingo');
-            $table->string('valor')->nullable();
-            $table->string('notas')->nullable();
+            $table->date('semana_inicio');
+            $table->enum('estado', ['borrador', 'aceptado'])->default('borrador');
+            $table->timestamp('generado_en')->nullable();
+            $table->timestamp('aceptado_en')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reglas_hogar');
+        Schema::dropIfExists('menus_semanales');
     }
 };

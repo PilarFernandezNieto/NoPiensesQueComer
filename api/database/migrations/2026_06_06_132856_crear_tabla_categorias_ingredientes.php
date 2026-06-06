@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('categorias_ingredientes', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->integer('orden')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('categorias_ingredientes');
     }
 };
